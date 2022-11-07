@@ -1,20 +1,24 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
+import { AuthContext } from "../contexts/AuthProvider/AuthProvider";
 import {
   Navbar,
   MobileNav,
   Typography,
   Button,
   IconButton,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
+  Tooltip,
+  Avatar,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import "./Style.css";
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
   const [openNav, setOpenNav] = useState(false);
-
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => {});
+  };
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -115,9 +119,30 @@ const Header = () => {
           </Typography>
         </Link>
         <div className="hidden lg:block">{navList}</div>
-        <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-          <span>Buy Now</span>
-        </Button>
+        {user?.uid ? (
+          <div className="hidden lg:flex items-center justify-center">
+            <Tooltip content={`${user.displayName}`}>
+              <Avatar src={user?.photoURL} alt="avatar" variant="circular" />
+            </Tooltip>
+
+            <Button size="sm" onClick={handleLogOut} className="ml-3 w-24 h-8">
+              Log Out
+            </Button>
+          </div>
+        ) : (
+          <div className="hidden lg:flex items-center justify-center">
+            <Button variant="gradient" className="mr-3">
+              <Link to="/login">
+                <span>Login</span>
+              </Link>
+            </Button>
+            <Button variant="gradient">
+              <Link to="/signup">
+                <span>Sign Up</span>
+              </Link>
+            </Button>
+          </div>
+        )}
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -158,9 +183,30 @@ const Header = () => {
       </div>
       <MobileNav open={openNav}>
         {navList}
-        <Button variant="gradient" size="sm" fullWidth className="mb-2">
-          <span>Buy Now</span>
-        </Button>
+        {user?.uid ? (
+          <div className="flex items-center justify-center">
+            <Tooltip content={`${user.displayName}`}>
+              <Avatar src={user?.photoURL} alt="avatar" variant="circular" />
+            </Tooltip>
+
+            <Button onClick={handleLogOut} size="sm" className="ml-3 w-24 h-8">
+              Log Out
+            </Button>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <Button variant="gradient" className="mr-3">
+              <Link to="/login">
+                <span>Login</span>
+              </Link>
+            </Button>
+            <Button variant="gradient">
+              <Link to="/signup">
+                <span>Sign Up</span>
+              </Link>
+            </Button>
+          </div>
+        )}
       </MobileNav>
     </Navbar>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -6,7 +6,6 @@ import {
   CardFooter,
   Typography,
   Input,
-  Checkbox,
   Button,
 } from "@material-tailwind/react";
 import {
@@ -16,11 +15,99 @@ import {
   FaMailBulk,
   FaLock,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
+import { GoogleAuthProvider } from "firebase/auth";
+import { Helmet } from "react-helmet";
 const SignUp = () => {
+  const { createUser, updateName, googleLogin, setUser } =
+    useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const photoURL = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log("object");
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset();
+
+        // Update Name
+        updateName(name, photoURL).then(() => {
+          setUser({ ...user, displayName: name, photoURL });
+        });
+
+        toast("Signup Success", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
+  };
+  const provider = new GoogleAuthProvider();
+  const handelGoogleLogin = () => {
+    googleLogin(provider)
+      .then((result) => {
+        toast("Signup Success", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("error", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
+  };
   return (
     <div className="grid justify-items-center gap-10 my-20 md:grid-cols-1">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sign Up - The Wild Life</title>
+        <meta name="description" content="Sign Up page - The Wild Life" />
+      </Helmet>
       <Card className="w-96">
         <CardHeader
           variant="gradient"
@@ -31,19 +118,35 @@ const SignUp = () => {
             Sign Up
           </Typography>
         </CardHeader>
-        <CardBody className="flex flex-col gap-4">
-          <Input label="Name" size="lg" icon={<FaUserCheck />} />
-          <Input label="Photo URL" size="lg" icon={<FaFileImage />} />
-          <Input label="Email" size="lg" icon={<FaMailBulk />} />
-          <Input label="Password" size="lg" icon={<FaLock />} />
-          <div className="-ml-2.5">
-            <Checkbox label="Remember Me" />
-          </div>
-        </CardBody>
+        <form onSubmit={handleSignUp}>
+          <CardBody className="flex flex-col gap-4">
+            <Input label="Name" name="name" size="lg" icon={<FaUserCheck />} />
+            <Input
+              label="Photo URL"
+              name="photo"
+              size="lg"
+              icon={<FaFileImage />}
+            />
+            <Input label="Email" name="email" size="lg" icon={<FaMailBulk />} />
+
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              size="lg"
+              icon={<FaLock />}
+            />
+
+            <Button className="mt-2" variant="gradient" fullWidth>
+              <input
+                type="submit"
+                className="btn btn-primary"
+                value="Sign Up"
+              />
+            </Button>
+          </CardBody>
+        </form>
         <CardFooter className="pt-0">
-          <Button variant="gradient" fullWidth>
-            Sign In
-          </Button>
           <div className="pt-4">
             <Button color="blue" fullWidth>
               <div className="flex items-center justify-center">
