@@ -8,15 +8,22 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 const ServiceCard = ({ service }) => {
   return (
     <Card className="w-full">
       <CardHeader color="blue" className="relative h-56">
-        <img
+        <PhotoProvider>
+          <PhotoView src={service.photo}>
+            <img src={service.photo} alt="" className="h-full w-full" />
+          </PhotoView>
+        </PhotoProvider>
+        {/* <img
           src={service.photo}
           alt={service.serviceName}
           className="h-full w-full"
-        />
+        /> */}
       </CardHeader>
       <CardBody className="text-center">
         <Typography variant="h5" className="mb-2">

@@ -25,6 +25,16 @@ const AddService = () => {
     const startingPrice = form.startingPrice.value;
     const otherCharge = form.otherCharge.value;
     const description = form.description.value;
+    if (
+      serviceName === "" ||
+      photo === "" ||
+      startingPrice === "" ||
+      otherCharge === "" ||
+      description === ""
+    ) {
+      alert("All Fields are required");
+      return;
+    }
     const service = {
       serviceName: serviceName,
       photo: photo,

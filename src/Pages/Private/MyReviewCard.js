@@ -13,7 +13,7 @@ import {
   Textarea,
 } from "@material-tailwind/react";
 
-const MyReviewCard = ({ review, handleDelete }) => {
+const MyReviewCard = ({ review, handleDelete, handleEdit }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -55,7 +55,7 @@ const MyReviewCard = ({ review, handleDelete }) => {
                 >
                   <span>Cancel</span>
                 </Button>
-                <Button variant="gradient" color="green" onClick={handleOpen}>
+                <Button variant="gradient" color="green">
                   <span>Confirm</span>
                 </Button>
               </DialogFooter>

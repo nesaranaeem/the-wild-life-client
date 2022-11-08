@@ -253,6 +253,40 @@ const HeroSection = () => {
           </div>
         </div>
       </section>
+      {/* about section */}
+      <section>
+        <div class="mx-auto max-w-screen-xl my-2 py-2 px-4 lg:px-8 lg:py-4">
+          <div class="max-w-3xl">
+            <h2 class="text-3xl font-bold sm:text-4xl">
+              I am Mark Neo, Professional WildLife Photographer
+            </h2>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+            <div class="relative h-64 overflow-hidden sm:h-80 lg:h-full">
+              <img
+                alt="Party"
+                src="https://images.unsplash.com/photo-1616858136942-c76763274a08?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+
+            <div class="lg:py-16">
+              <article class="space-y-4 text-gray-600">
+                <p>
+                  You may hear my name in TV. i am professional wild life
+                  photographer with more than 10 years experiance.
+                </p>
+
+                <p>
+                  I am a National Award-winning photographer. featured on CNN
+                  and the discovery channel. i love to captrue the wild life.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

@@ -28,7 +28,7 @@ const MyReviews = () => {
       .then((data) => setReviews(data));
   }, [user?.email, logOut, reviews]);
 
-  const [reviewDelete, setReviewDelete] = useState([]);
+  const [reviewDelete, setReview] = useState([]);
   const handleDelete = (id) => {
     const proceed = window.confirm(`are you sure you want to remove?`);
     if (proceed) {
@@ -50,10 +50,31 @@ const MyReviews = () => {
               theme: "light",
             });
             const remaining = reviewDelete.filter((odr) => odr._id !== id);
-            setReviewDelete(remaining);
+            setReview(remaining);
           }
         });
     }
+  };
+
+  const handleEdit = (id) => {
+    fetch(`http://localhost:5000/reviewby/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: "Approved" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          const remaining = reviews.filter((odr) => odr._id !== id);
+          const approving = reviews.find((odr) => odr._id === id);
+          approving.status = "Approved";
+          const newOrders = [approving, ...remaining];
+          setReview(newOrders);
+        }
+      });
   };
   return (
     <section className="mx-auto my-4 max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
@@ -78,7 +99,7 @@ const MyReviews = () => {
         </h3>
         <p className="text-center font-medium py-5">
           {reviews?.length === 0 ? (
-            <p>Sorry! No Reviews found</p>
+            <p>No reviews were added</p>
           ) : (
             <p>Total Review: {reviews.length}</p>
           )}
@@ -93,6 +114,7 @@ const MyReviews = () => {
             key={review._id}
             handleDelete={handleDelete}
             review={review}
+            handleEdit={handleEdit}
           ></MyReviewCard>
         ))}
       </div>

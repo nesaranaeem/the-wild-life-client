@@ -53,36 +53,11 @@ const Header = () => {
           </div>
         </div> */}
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Account
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
-      </Typography>
+      <Link to="/blog">
+        <Button size="sm" className="ml-3 w-32 h-8">
+          Blog
+        </Button>
+      </Link>
     </ul>
   );
   return (
@@ -94,7 +69,7 @@ const Header = () => {
             variant="small"
             className="mr-4 cursor-pointer py-1.5 font-normal"
           >
-            <span>The Wild Life</span>
+            <span className="text-xl">The Wild Life</span>
           </Typography>
         </Link>
         <div className="hidden lg:block">{navList}</div>
