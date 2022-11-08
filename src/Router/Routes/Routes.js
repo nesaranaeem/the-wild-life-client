@@ -3,6 +3,7 @@ import Main from "../../Layout/Main";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Pages/Login";
 import SignUp from "../../Pages/Pages/SignUp";
+import AddService from "../../Pages/Private/AddService";
 import MyReviews from "../../Pages/Private/MyReviews";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
@@ -28,6 +29,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyReviews></MyReviews>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/add-service",
+        element: (
+          <PrivateRoute>
+            <AddService></AddService>
           </PrivateRoute>
         ),
       },

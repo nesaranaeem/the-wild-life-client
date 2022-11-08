@@ -55,7 +55,7 @@ const Login = () => {
           .then((data) => {
             console.log(data);
             //set on local storage
-            localStorage.setItem("vehicle-doctor-token", data.token);
+            localStorage.setItem("the-wildlife-token", data.token);
           });
         navigate(from, { replace: true });
       })
@@ -77,6 +77,7 @@ const Login = () => {
   const handelGoogleLogin = () => {
     googleLogin(provider)
       .then((result) => {
+        const user = result.user;
         toast("Login Success", {
           position: "top-center",
           autoClose: 5000,
@@ -87,6 +88,23 @@ const Login = () => {
           progress: undefined,
           theme: "light",
         });
+        const currentUser = {
+          email: user.email,
+        };
+        //get jwt tokens
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            //set on local storage
+            localStorage.setItem("the-wildlife-token", data.token);
+          });
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -110,7 +128,7 @@ const Login = () => {
         <title>Login - The Wild Life</title>
         <meta name="description" content="Login page - The Wild Life" />
       </Helmet>
-      <Card className="w-96">
+      <Card className="w-full lg:w-96">
         <CardHeader
           variant="gradient"
           color="blue"
@@ -139,7 +157,10 @@ const Login = () => {
         <CardFooter className="pt-0">
           <div className="pt-4">
             <Button color="blue" fullWidth>
-              <div className="flex items-center justify-center">
+              <div
+                className="flex items-center justify-center"
+                onClick={handelGoogleLogin}
+              >
                 <FaGoogle className="mr-2" />
                 Login with Google
               </div>

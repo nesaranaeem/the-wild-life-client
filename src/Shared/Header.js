@@ -35,7 +35,7 @@ const Header = () => {
       >
         <div className="p-0">
           <div className="dropdown inline-block relative">
-            <button className=" text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+            <button className=" text-gray-700 font-semibold rounded inline-flex items-center">
               <span>Services</span>
               <svg
                 className="fill-current h-4 w-4"
@@ -60,14 +60,6 @@ const Header = () => {
                   href="#"
                 >
                   Two
-                </a>
-              </li>
-              <li className="">
-                <a
-                  className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                  href="#"
-                >
-                  Three is the magic number
                 </a>
               </li>
             </ul>
@@ -124,22 +116,33 @@ const Header = () => {
             <Tooltip content={`${user.displayName}`}>
               <Avatar src={user?.photoURL} alt="avatar" variant="circular" />
             </Tooltip>
-
-            <Button size="sm" onClick={handleLogOut} className="ml-3 w-24 h-8">
-              Log Out
-            </Button>
+            <div className="hidden lg:flex items-center justify-center">
+              <Link to="/my-reviews">
+                <Button size="sm" className="ml-3 w-28 h-8">
+                  My Reviews
+                </Button>
+              </Link>
+              <Link to="/add-service">
+                <Button size="sm" className="ml-3 w-32 h-8">
+                  Add Service
+                </Button>
+              </Link>
+              <Button
+                size="sm"
+                onClick={handleLogOut}
+                className="ml-3 w-24 h-8"
+              >
+                Log Out
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="hidden lg:flex items-center justify-center">
             <Button variant="gradient" className="mr-3">
-              <Link to="/login">
-                <span>Login</span>
-              </Link>
+              <Link to="/login">Login</Link>
             </Button>
             <Button variant="gradient">
-              <Link to="/signup">
-                <span>Sign Up</span>
-              </Link>
+              <Link to="/signup">Sign Up</Link>
             </Button>
           </div>
         )}
@@ -189,21 +192,27 @@ const Header = () => {
               <Avatar src={user?.photoURL} alt="avatar" variant="circular" />
             </Tooltip>
 
-            <Button onClick={handleLogOut} size="sm" className="ml-3 w-24 h-8">
+            <Link to="/my-reviews">
+              <Button size="sm" className="ml-3 w-28 h-8">
+                My Reviews
+              </Button>
+            </Link>
+            <Link to="/add-service">
+              <Button size="sm" className="ml-3 w-32 h-8">
+                Add Service
+              </Button>
+            </Link>
+            <Button size="sm" onClick={handleLogOut} className="ml-3 w-24 h-8">
               Log Out
             </Button>
           </div>
         ) : (
           <div className="flex items-center justify-center">
             <Button variant="gradient" className="mr-3">
-              <Link to="/login">
-                <span>Login</span>
-              </Link>
+              <Link to="/login">Login</Link>
             </Button>
             <Button variant="gradient">
-              <Link to="/signup">
-                <span>Sign Up</span>
-              </Link>
+              <Link to="/signup">Sign Up</Link>
             </Button>
           </div>
         )}

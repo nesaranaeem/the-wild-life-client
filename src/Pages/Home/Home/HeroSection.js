@@ -7,7 +7,7 @@ const HeroSection = () => {
           <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <div class="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full">
               <img
-                alt="Party"
+                alt="Tiger"
                 src="https://images.unsplash.com/photo-1500463959177-e0869687df26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
                 class="absolute inset-0 h-full w-full object-cover"
               />
