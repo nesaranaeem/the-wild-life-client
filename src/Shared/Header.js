@@ -58,6 +58,11 @@ const Header = () => {
           Blog
         </Button>
       </Link>
+      <Link to="/services">
+        <Button size="sm" className="ml-3 w-32 h-8">
+          All Services
+        </Button>
+      </Link>
     </ul>
   );
   return (
