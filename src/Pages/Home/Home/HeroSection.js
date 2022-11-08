@@ -1,5 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
+import ServiceCard from "../../../Shared/ServiceCard";
 const HeroSection = () => {
+  const [services, setServices] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/services")
+      .then((res) => res.json())
+      .then((data) => setServices(data));
+  });
   return (
     <>
       <section>
@@ -22,9 +31,9 @@ const HeroSection = () => {
                 10+ years experience
               </p>
 
-              <a
-                href="#"
-                class="mt-8 inline-flex items-center rounded border border-indigo-600 bg-indigo-600 px-8 py-3 text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+              <Link
+                to="/services"
+                className="mt-8 inline-flex items-center rounded border border-indigo-600 bg-indigo-600 px-8 py-3 text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
               >
                 <span class="text-sm font-medium"> Get Started </span>
 
@@ -42,9 +51,32 @@ const HeroSection = () => {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-screen-xl my-2 py-2 px-4 lg:px-8 lg:py-4">
+        <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-lg text-center">
+            <h2 className="text-3xl font-bold sm:text-4xl text-cyan-900">
+              Services
+            </h2>
+            <p className="mt-4 text-slate-900">
+              Here is the list of services. which i offer
+            </p>
+          </div>
+          <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <ServiceCard key={service._id} service={service}></ServiceCard>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <Link to="/services">
+            <Button size="sm">View All Services</Button>
+          </Link>
         </div>
       </section>
 

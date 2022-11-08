@@ -33,7 +33,7 @@ const SignUp = () => {
     const photoURL = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log("object");
+
     createUser(email, password)
       .then((result) => {
         const user = result.user;
@@ -59,19 +59,19 @@ const SignUp = () => {
           email: user.email,
         };
         //get jwt tokens
-        fetch("http://localhost:5000/jwt", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(currentUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            //set on local storage
-            localStorage.setItem("the-wildlife-token", data.token);
-          });
+        // fetch("http://localhost:5000/jwt", {
+        //   method: "POST",
+        //   headers: {
+        //     "content-type": "application/json",
+        //   },
+        //   body: JSON.stringify(currentUser),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     console.log(data);
+        //     //set on local storage
+        //     localStorage.setItem("the-wildlife-token", data.token);
+        //   });
         navigate(from, { replace: true });
       })
       .catch((err) => {
@@ -105,7 +105,7 @@ const SignUp = () => {
         const currentUser = {
           email: user.email,
         };
-        //get jwt tokens
+        // get jwt tokens
         fetch("http://localhost:5000/jwt", {
           method: "POST",
           headers: {
@@ -170,23 +170,17 @@ const SignUp = () => {
               size="lg"
               icon={<FaLock />}
             />
-
-            <Button className="mt-2" variant="gradient" fullWidth>
-              <input
-                type="submit"
-                className="btn btn-primary"
-                value="Sign Up"
-              />
-            </Button>
+            <input
+              type="submit"
+              className="block w-full rounded-lg bg-indigo-400 hover:bg-indigo-800 px-5 py-3 text-sm font-medium text-white"
+              value="Sign Up"
+            ></input>
           </CardBody>
         </form>
         <CardFooter className="pt-0">
           <div className="pt-4">
-            <Button color="blue" fullWidth>
-              <div
-                className="flex items-center justify-center"
-                onClick={handelGoogleLogin}
-              >
+            <Button color="blue" fullWidth onClick={handelGoogleLogin}>
+              <div className="flex items-center justify-center">
                 <FaGoogle className="mr-2" />
                 Signup with Google
               </div>

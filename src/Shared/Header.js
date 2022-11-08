@@ -33,7 +33,7 @@ const Header = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <div className="p-0">
+        {/* <div className="p-0">
           <div className="dropdown inline-block relative">
             <button className=" text-gray-700 font-semibold rounded inline-flex items-center">
               <span>Services</span>
@@ -47,24 +47,11 @@ const Header = () => {
             </button>
             <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
               <li className="">
-                <a
-                  className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                  href="#"
-                >
-                  One
-                </a>
-              </li>
-              <li className="">
-                <a
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                  href="#"
-                >
-                  Two
-                </a>
+                <Link to="sds">djsj</Link>
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </Typography>
       <Typography
         as="li"
@@ -138,12 +125,14 @@ const Header = () => {
           </div>
         ) : (
           <div className="hidden lg:flex items-center justify-center">
-            <Button variant="gradient" className="mr-3">
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button variant="gradient">
-              <Link to="/signup">Sign Up</Link>
-            </Button>
+            <Link to="/login">
+              <Button variant="gradient" className="mr-3">
+                Login
+              </Button>
+            </Link>
+            <Link to="/signup">
+              <Button variant="gradient">Sign Up</Button>
+            </Link>
           </div>
         )}
         <IconButton
@@ -187,33 +176,35 @@ const Header = () => {
       <MobileNav open={openNav}>
         {navList}
         {user?.uid ? (
-          <div className="flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center">
             <Tooltip content={`${user.displayName}`}>
               <Avatar src={user?.photoURL} alt="avatar" variant="circular" />
             </Tooltip>
 
             <Link to="/my-reviews">
-              <Button size="sm" className="ml-3 w-28 h-8">
+              <Button size="sm" className="mt-1 w-28 h-8">
                 My Reviews
               </Button>
             </Link>
             <Link to="/add-service">
-              <Button size="sm" className="ml-3 w-32 h-8">
+              <Button size="sm" className="mt-1 w-32 h-8">
                 Add Service
               </Button>
             </Link>
-            <Button size="sm" onClick={handleLogOut} className="ml-3 w-24 h-8">
+            <Button size="sm" onClick={handleLogOut} className="mt-1 w-24 h-8">
               Log Out
             </Button>
           </div>
         ) : (
           <div className="flex items-center justify-center">
-            <Button variant="gradient" className="mr-3">
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button variant="gradient">
-              <Link to="/signup">Sign Up</Link>
-            </Button>
+            <Link to="/login">
+              <Button variant="gradient" className="mr-3">
+                Login
+              </Button>
+            </Link>
+            <Link to="/signup">
+              <Button variant="gradient">Sign Up</Button>
+            </Link>
           </div>
         )}
       </MobileNav>

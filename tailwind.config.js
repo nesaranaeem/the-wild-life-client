@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
 module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],

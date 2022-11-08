@@ -149,18 +149,17 @@ const Login = () => {
               icon={<FaLockOpen />}
             />
 
-            <Button className="mt-2" variant="gradient" fullWidth>
-              <input type="submit" className="btn btn-primary" value="Login" />
-            </Button>
+            <input
+              type="submit"
+              className="block w-full rounded-lg bg-indigo-400 hover:bg-indigo-800 px-5 py-3 text-sm font-medium text-white"
+              value="Login"
+            ></input>
           </CardBody>
         </form>
         <CardFooter className="pt-0">
           <div className="pt-4">
-            <Button color="blue" fullWidth>
-              <div
-                className="flex items-center justify-center"
-                onClick={handelGoogleLogin}
-              >
+            <Button color="blue" fullWidth onClick={handelGoogleLogin}>
+              <div className="flex items-center justify-center">
                 <FaGoogle className="mr-2" />
                 Login with Google
               </div>
