@@ -144,7 +144,7 @@ const AddService = () => {
 
       <div class="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 my-4">
         <h3 className="text-center my-2">
-          Total: {services.length} By {user?.displayName}
+          {user?.displayName}, You added {services.length} Services yet
         </h3>
         {services?.length < 1 ? (
           <p className="text-center">No data</p>

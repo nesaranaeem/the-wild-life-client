@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { FaFontAwesomeFlag, FaFileImage } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -6,33 +6,54 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import {
   Card,
   CardHeader,
-  CardBody,
   CardFooter,
   Typography,
-  Input,
-  Textarea,
-  Select,
-  Option,
 } from "@material-tailwind/react";
+import MyReviewCard from "./MyReviewCard";
 const MyReviews = () => {
   const { user, logOut } = useContext(AuthContext);
-  const handleAddReview = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const addedBy = `${user?.displayName}`;
-    const adderemail = user?.email || "Guest";
-    const title = form.title.value;
-    const rating = form.rating.value;
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviewby?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
+      .then((data) => setReviews(data));
+  }, [user?.email, logOut, reviews]);
 
-    const description = form.description.value;
-    const service = {
-      title: title,
-      rating: rating,
-      description: description,
-      addedBy: addedBy,
-      email: adderemail,
-    };
-    console.log(service);
+  const [reviewDelete, setReviewDelete] = useState([]);
+  const handleDelete = (id) => {
+    const proceed = window.confirm(`are you sure you want to remove?`);
+    if (proceed) {
+      fetch(`http://localhost:5000/reviewby/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.deletedCount === 1) {
+            toast(` Your review is deleted from the list`, {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            const remaining = reviewDelete.filter((odr) => odr._id !== id);
+            setReviewDelete(remaining);
+          }
+        });
+    }
   };
   return (
     <section className="mx-auto my-4 max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
@@ -55,44 +76,26 @@ const MyReviews = () => {
           Hello, <span className="font-bold">{user?.displayName}</span>(
           {user?.email}).
         </h3>
-        <form onSubmit={handleAddReview}>
-          <CardBody className="grid justify-items-center gap-4 md:grid-cols-2">
-            <Input
-              label="Review Title"
-              name="title"
-              size="lg"
-              icon={<FaFontAwesomeFlag />}
-            />
-            <select
-              name="rating"
-              className="w-full border-solid border border-gray-400"
-            >
-              <option disabled selected>
-                Rate Out of 5
-              </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-            <div className="lg:col-span-2 w-full">
-              <Textarea name="description" label="Description" />
-            </div>
-            <div className="lg:col-span-2">
-              <input
-                type="submit"
-                className="block rounded-lg bg-indigo-400 hover:bg-indigo-800 px-5 py-3 text-sm font-medium text-white"
-                value="Add Review"
-              ></input>
-            </div>
-          </CardBody>
-        </form>
+        <p className="text-center font-medium py-5">
+          {reviews?.length === 0 ? (
+            <p>Sorry! No Reviews found</p>
+          ) : (
+            <p>Total Review: {reviews.length}</p>
+          )}
+        </p>
         <CardFooter className="pt-0">
           <div className="pt-4"></div>
         </CardFooter>
       </Card>
+      <div className="my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-16 lg:grid-cols-3">
+        {reviews.map((review) => (
+          <MyReviewCard
+            key={review._id}
+            handleDelete={handleDelete}
+            review={review}
+          ></MyReviewCard>
+        ))}
+      </div>
     </section>
   );
 };

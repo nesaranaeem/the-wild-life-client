@@ -109,8 +109,7 @@ const Services = () => {
           <div class="inline-flex items-center rounded-full bg-indigo-700 px-8 py-3 text-white shadow-lg transition hover:bg-indigo-600 focus:outline-none focus:ring">
             <span class="text-sm font-medium">
               {" "}
-              Others Charge:{" "}
-              {otherCharge === 0 ? otherCharge : "No Extra Charge"}{" "}
+              Others Charge: ${otherCharge}
             </span>
           </div>
         </div>
