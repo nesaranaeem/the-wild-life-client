@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
 import Blog from "../../Pages/Blog/Blog";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Pages/Login";
 import SignUp from "../../Pages/Pages/SignUp";
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
           fetch(
             `https://the-wildlife-professional-photographer-server.vercel.app/services/${params.id}`
           ),
+        errorElement: <ErrorPage></ErrorPage>,
       },
       {
         path: "/my-reviews",
@@ -58,6 +60,10 @@ export const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog></Blog>,
+      },
+      {
+        path: "/*",
+        element: <ErrorPage></ErrorPage>,
       },
     ],
   },
