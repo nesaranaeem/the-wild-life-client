@@ -27,6 +27,10 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
+    if (email === "" || password === "") {
+      alert("Please enter login details");
+      return;
+    }
     loginUserEmailPassword(email, password)
       .then((result) => {
         const user = result.user;
@@ -61,7 +65,8 @@ const Login = () => {
             //set on local storage
             localStorage.setItem("the-wildlife-token", data.token);
           });
-        navigate(from, { replace: true });
+
+        navigate("/");
         setLoading(false);
       })
       .catch((err) => {
@@ -109,11 +114,11 @@ const Login = () => {
         )
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             //set on local storage
             localStorage.setItem("the-wildlife-token", data.token);
           });
-        navigate(from, { replace: true });
+        setLoading(false);
+        navigate("/");
       })
       .catch((error) => {
         console.error(error);

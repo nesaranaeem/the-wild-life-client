@@ -35,7 +35,10 @@ const SignUp = () => {
     const photoURL = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-
+    if (name === "" || photoURL === "" || email === "" || password === "") {
+      alert("All the field are required");
+      return;
+    }
     createUser(email, password)
       .then((result) => {
         const user = result.user;
@@ -110,6 +113,7 @@ const SignUp = () => {
         const currentUser = {
           email: user.email,
         };
+        setLoading(false);
         // get jwt tokens
         fetch(
           "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
