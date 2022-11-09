@@ -20,8 +20,9 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Helmet } from "react-helmet";
+import Loader from "../../Shared/Loader/Loader";
 const SignUp = () => {
-  const { createUser, updateName, googleLogin, setUser } =
+  const { createUser, updateName, googleLogin, setUser, setLoading, loading } =
     useContext(AuthContext);
 
   const location = useLocation();
@@ -38,15 +39,15 @@ const SignUp = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        form.reset();
 
+        form.reset();
+        setLoading(true);
         // Update Name
         updateName(name, photoURL).then(() => {
           setUser({ ...user, displayName: name, photoURL });
         });
         navigate(from, { replace: true });
-
+        setLoading(false);
         toast("Signup Success", {
           position: "top-center",
           autoClose: 5000,
@@ -142,72 +143,89 @@ const SignUp = () => {
         });
       });
   };
+
   return (
     <div className="grid justify-items-center gap-10 my-20 md:grid-cols-1">
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Sign Up - The Wild Life</title>
-        <meta name="description" content="Sign Up page - The Wild Life" />
-      </Helmet>
-      <Card className="w-full lg:w-96">
-        <CardHeader
-          variant="gradient"
-          color="blue"
-          className="mb-4 grid h-28 place-items-center"
-        >
-          <Typography variant="h3" color="white">
-            Sign Up
-          </Typography>
-        </CardHeader>
-        <form onSubmit={handleSignUp}>
-          <CardBody className="flex flex-col gap-4">
-            <Input label="Name" name="name" size="lg" icon={<FaUserCheck />} />
-            <Input
-              label="Photo URL"
-              name="photo"
-              size="lg"
-              icon={<FaFileImage />}
-            />
-            <Input label="Email" name="email" size="lg" icon={<FaMailBulk />} />
-
-            <Input
-              label="Password"
-              type="password"
-              name="password"
-              size="lg"
-              icon={<FaLock />}
-            />
-            <input
-              type="submit"
-              className="block w-full rounded-lg bg-indigo-400 hover:bg-indigo-800 px-5 py-3 text-sm font-medium text-white"
-              value="Sign Up"
-            ></input>
-          </CardBody>
-        </form>
-        <CardFooter className="pt-0">
-          <div className="pt-4">
-            <Button color="blue" fullWidth onClick={handelGoogleLogin}>
-              <div className="flex items-center justify-center">
-                <FaGoogle className="mr-2" />
-                Signup with Google
-              </div>
-            </Button>
-          </div>
-          <Typography variant="small" className="mt-6 flex justify-center">
-            Already have an account?
-            <Link to="/login">
-              <Typography
-                as="a"
-                variant="small"
-                color="blue"
-                className="ml-1 font-bold"
-              >
-                Login
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Sign Up - The Wild Life</title>
+            <meta name="description" content="Sign Up page - The Wild Life" />
+          </Helmet>
+          <Card className="w-full lg:w-96">
+            <CardHeader
+              variant="gradient"
+              color="blue"
+              className="mb-4 grid h-28 place-items-center"
+            >
+              <Typography variant="h3" color="white">
+                Sign Up
               </Typography>
-            </Link>
-          </Typography>
-        </CardFooter>
-      </Card>
+            </CardHeader>
+            <form onSubmit={handleSignUp}>
+              <CardBody className="flex flex-col gap-4">
+                <Input
+                  label="Name"
+                  name="name"
+                  size="lg"
+                  icon={<FaUserCheck />}
+                />
+                <Input
+                  label="Photo URL"
+                  name="photo"
+                  size="lg"
+                  icon={<FaFileImage />}
+                />
+                <Input
+                  label="Email"
+                  name="email"
+                  size="lg"
+                  icon={<FaMailBulk />}
+                />
+
+                <Input
+                  label="Password"
+                  type="password"
+                  name="password"
+                  size="lg"
+                  icon={<FaLock />}
+                />
+                <input
+                  type="submit"
+                  className="block w-full rounded-lg bg-indigo-400 hover:bg-indigo-800 px-5 py-3 text-sm font-medium text-white"
+                  value="Sign Up"
+                ></input>
+              </CardBody>
+            </form>
+            <CardFooter className="pt-0">
+              <div className="pt-4">
+                <Button color="blue" fullWidth onClick={handelGoogleLogin}>
+                  <div className="flex items-center justify-center">
+                    <FaGoogle className="mr-2" />
+                    Signup with Google
+                  </div>
+                </Button>
+              </div>
+              <Typography variant="small" className="mt-6 flex justify-center">
+                Already have an account?
+                <Link to="/login">
+                  <Typography
+                    as="a"
+                    variant="small"
+                    color="blue"
+                    className="ml-1 font-bold"
+                  >
+                    Login
+                  </Typography>
+                </Link>
+              </Typography>
+            </CardFooter>
+          </Card>
+        </>
+      )}
     </div>
   );
 };
