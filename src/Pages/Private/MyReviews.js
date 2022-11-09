@@ -62,28 +62,6 @@ const MyReviews = () => {
     }
   };
 
-  const handleEdit = (id) => {
-    // fetch(
-    //   `https://the-wildlife-professional-photographer-server.vercel.app/reviewby/${id}`,
-    //   {
-    //     method: "PATCH",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     },
-    //     body: JSON.stringify({ status: "Approved" }),
-    //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.modifiedCount) {
-    //       const remaining = reviews.filter((odr) => odr._id !== id);
-    //       const approving = reviews.find((odr) => odr._id === id);
-    //       approving.status = "Approved";
-    //       const newOrders = [approving, ...remaining];
-    //       setReview(newOrders);
-    //     }
-    //   });
-  };
   return (
     <section className="mx-auto my-4 max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
       <Helmet>
@@ -122,7 +100,6 @@ const MyReviews = () => {
             key={review._id}
             handleDelete={handleDelete}
             review={review}
-            handleEdit={handleEdit}
           ></MyReviewCard>
         ))}
       </div>

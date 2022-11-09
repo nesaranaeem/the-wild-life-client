@@ -9,7 +9,8 @@ import {
   Textarea,
 } from "@material-tailwind/react";
 import { toast } from "react-toastify";
-import { FaFontAwesomeFlag, FaFileImage, FaDollarSign } from "react-icons/fa";
+import { FaFontAwesomeFlag } from "react-icons/fa";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import ReviewCard from "./Review/ReviewCard";
 import { Helmet } from "react-helmet";
 const Services = () => {
@@ -95,11 +96,15 @@ const Services = () => {
         />
       </Helmet>
       <div class="group relative flex h-96 w-full items-end bg-black">
-        <img
-          alt="Bike"
-          src={photo}
-          class="absolute inset-0 h-full w-full object-cover transition-opacity group-hover:opacity-90"
-        />
+        <PhotoProvider>
+          <PhotoView src={photo}>
+            <img
+              src={photo}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover transition-opacity group-hover:opacity-90"
+            />
+          </PhotoView>
+        </PhotoProvider>
 
         <div class="mx-auto relative w-full bg-red-700 p-6 text-center tracking-widest text-white transition-colors group-hover:bg-black sm:w-2/3">
           <h3 class="text-lg uppercase">{serviceName}</h3>

@@ -8,18 +8,39 @@ import {
   Button,
   Dialog,
   DialogHeader,
-  DialogBody,
-  DialogFooter,
   Textarea,
 } from "@material-tailwind/react";
 
-const MyReviewCard = ({ review, handleDelete, handleEdit }) => {
+const MyReviewCard = ({ review, handleDelete }) => {
+  const [reviews, setReviews] = useState([]);
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => setOpen(!open);
-
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const description = form.description.value;
+    const abcd = (12).then(
+      fetch(`http://localhost:5000/updatereview/${review._id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ description: description }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount) {
+            const remaining = reviews.filter((odr) => odr._id !== review._id);
+            const approving = reviews.find((odr) => odr._id === review._id);
+            approving.description = description;
+            const newDescription = [approving, ...remaining];
+            setReviews(newDescription);
+          }
+        })
+    );
+  };
   return (
-    <Fragment>
+    <>
       <Card className="w-full lg:w-96">
         <CardHeader
           color="blue"
@@ -31,36 +52,16 @@ const MyReviewCard = ({ review, handleDelete, handleEdit }) => {
           <Typography variant="h5" className="mb-2">
             {review.title}
           </Typography>
-          <Typography>{review.description}</Typography>
-        </CardBody>
-        <CardFooter divider className="flex items-center justify-between py-3">
-          <Typography variant="small">
+          {/* <button onClick={() => handleUpdate(review._id)}>dd</button> */}
+          <Typography>
+            {review.description}
+
             <Button onClick={handleOpen} variant="gradient" size="sm">
               Edit
             </Button>
-            <Dialog open={open} handler={handleOpen}>
-              <DialogHeader>Edit Review</DialogHeader>
-              <DialogBody divider>
-                <Textarea>{review.title}</Textarea>
-              </DialogBody>
-              <DialogBody divider>
-                <Textarea>{review.description}</Textarea>
-              </DialogBody>
-              <DialogFooter>
-                <Button
-                  variant="text"
-                  color="red"
-                  onClick={handleOpen}
-                  className="mr-1"
-                >
-                  <span>Cancel</span>
-                </Button>
-                <Button variant="gradient" color="green">
-                  <span>Confirm</span>
-                </Button>
-              </DialogFooter>
-            </Dialog>
           </Typography>
+        </CardBody>
+        <CardFooter divider className="flex items-center justify-between py-3">
           <Typography variant="small" color="gray" className="flex gap-1">
             <i className="fas fa-map-marker-alt fa-sm mt-[3px]" />
             <Button size="sm" onClick={() => handleDelete(review._id)}>
@@ -69,7 +70,26 @@ const MyReviewCard = ({ review, handleDelete, handleEdit }) => {
           </Typography>
         </CardFooter>
       </Card>
-    </Fragment>
+
+      {/* popup */}
+      <Fragment>
+        <Dialog open={open} handler={handleOpen}>
+          <DialogHeader>Update</DialogHeader>
+          <form className="p-8" onSubmit={handleUpdate}>
+            <Textarea
+              name="description"
+              defaultValue={review.description}
+              label="description"
+            />
+            <input
+              type="submit"
+              className="block w-full rounded-lg bg-indigo-400 hover:bg-indigo-800 px-5 py-3 text-sm font-medium text-white"
+              value="Update"
+            ></input>
+          </form>
+        </Dialog>
+      </Fragment>
+    </>
   );
 };
 

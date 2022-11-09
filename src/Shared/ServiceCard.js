@@ -19,11 +19,6 @@ const ServiceCard = ({ service }) => {
             <img src={service.photo} alt="" className="h-full w-full" />
           </PhotoView>
         </PhotoProvider>
-        {/* <img
-          src={service.photo}
-          alt={service.serviceName}
-          className="h-full w-full"
-        /> */}
       </CardHeader>
       <CardBody className="text-center">
         <Typography variant="h5" className="mb-2">
