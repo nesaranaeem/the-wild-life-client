@@ -21,7 +21,7 @@ import { toast } from "react-toastify";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Helmet } from "react-helmet";
 const SignUp = () => {
-  const { createUser, updateName, googleLogin, setUser } =
+  const { createUser, updateName, googleLogin, setUser, setLoading } =
     useContext(AuthContext);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -44,7 +44,8 @@ const SignUp = () => {
         updateName(name, photoURL).then(() => {
           setUser({ ...user, displayName: name, photoURL });
         });
-
+        navigate(from, { replace: true });
+        setLoading(false);
         toast("Signup Success", {
           position: "top-center",
           autoClose: 5000,
@@ -58,21 +59,23 @@ const SignUp = () => {
         const currentUser = {
           email: user.email,
         };
-        //get jwt tokens
-        // fetch("http://localhost:5000/jwt", {
-        //   method: "POST",
-        //   headers: {
-        //     "content-type": "application/json",
-        //   },
-        //   body: JSON.stringify(currentUser),
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //     //set on local storage
-        //     localStorage.setItem("the-wildlife-token", data.token);
-        //   });
-        navigate(from, { replace: true });
+        // get jwt tokens
+        fetch(
+          "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(currentUser),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            //set on local storage
+            localStorage.setItem("the-wildlife-token", data.token);
+          });
       })
       .catch((err) => {
         toast.error(err.message, {
@@ -106,13 +109,16 @@ const SignUp = () => {
           email: user.email,
         };
         // get jwt tokens
-        fetch("http://localhost:5000/jwt", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(currentUser),
-        })
+        fetch(
+          "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(currentUser),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

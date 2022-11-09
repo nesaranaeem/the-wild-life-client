@@ -44,13 +44,16 @@ const AddService = () => {
       addedBy: addedBy,
       email: adderemail,
     };
-    fetch("http://localhost:5000/services", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(service),
-    })
+    fetch(
+      "https://the-wildlife-professional-photographer-server.vercel.app/services",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(service),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -71,11 +74,14 @@ const AddService = () => {
   };
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/serviceby?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
-      },
-    })
+    fetch(
+      `https://the-wildlife-professional-photographer-server.vercel.app/serviceby?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();

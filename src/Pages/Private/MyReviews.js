@@ -14,11 +14,14 @@ const MyReviews = () => {
   const { user, logOut } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/reviewby?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
-      },
-    })
+    fetch(
+      `https://the-wildlife-professional-photographer-server.vercel.app/reviewby?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();
@@ -32,9 +35,12 @@ const MyReviews = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm(`are you sure you want to remove?`);
     if (proceed) {
-      fetch(`http://localhost:5000/reviewby/${id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://the-wildlife-professional-photographer-server.vercel.app/reviewby/${id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -57,24 +63,26 @@ const MyReviews = () => {
   };
 
   const handleEdit = (id) => {
-    fetch(`http://localhost:5000/reviewby/${id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ status: "Approved" }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.modifiedCount) {
-          const remaining = reviews.filter((odr) => odr._id !== id);
-          const approving = reviews.find((odr) => odr._id === id);
-          approving.status = "Approved";
-          const newOrders = [approving, ...remaining];
-          setReview(newOrders);
-        }
-      });
+    // fetch(
+    //   `https://the-wildlife-professional-photographer-server.vercel.app/reviewby/${id}`,
+    //   {
+    //     method: "PATCH",
+    //     headers: {
+    //       "content-type": "application/json",
+    //     },
+    //     body: JSON.stringify({ status: "Approved" }),
+    //   }
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.modifiedCount) {
+    //       const remaining = reviews.filter((odr) => odr._id !== id);
+    //       const approving = reviews.find((odr) => odr._id === id);
+    //       approving.status = "Approved";
+    //       const newOrders = [approving, ...remaining];
+    //       setReview(newOrders);
+    //     }
+    //   });
   };
   return (
     <section className="mx-auto my-4 max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">

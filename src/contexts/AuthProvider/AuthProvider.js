@@ -34,16 +34,17 @@ const AuthProvider = ({ children }) => {
     });
   };
   const logOut = () => {
-    localStorage.removeItem("vehicle-doctor-token");
+    localStorage.removeItem("the-wildlife-token");
     return signOut(auth);
   };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
     return () => {
-      return unsubscribe;
+      unsubscribe();
     };
   }, []);
   const authInfo = {
@@ -55,6 +56,7 @@ const AuthProvider = ({ children }) => {
     updateName,
     googleLogin,
     logOut,
+    setLoading,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
