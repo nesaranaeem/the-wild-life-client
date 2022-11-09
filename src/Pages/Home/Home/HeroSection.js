@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import Loader from "../../../Shared/Loader/Loader";
 import Heroitems from "./HeroItems/Heroitems";
 
 const HeroSection = () => {
   const [services, setServices] = useState([]);
-  const { loading, setLoading } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading();
     fetch(
       "https://the-wildlife-professional-photographer-server.vercel.app/services"
     )
@@ -16,11 +14,17 @@ const HeroSection = () => {
         setServices(data);
         setLoading(false);
       });
-  }, [setLoading]);
-  if (loading) {
-    return <Loader></Loader>;
-  }
-  return <Heroitems services={services}></Heroitems>;
+  });
+
+  return (
+    <>
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <Heroitems services={services}></Heroitems>
+      )}
+    </>
+  );
 };
 
 export default HeroSection;

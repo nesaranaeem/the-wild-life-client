@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -16,6 +16,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
 const Login = () => {
   const { loginUserEmailPassword, googleLogin } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
@@ -24,7 +25,6 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log("object");
     loginUserEmailPassword(email, password)
       .then((result) => {
         const user = result.user;
@@ -42,7 +42,7 @@ const Login = () => {
         const currentUser = {
           email: user.email,
         };
-        console.log(currentUser);
+
         //get jwt tokens
         fetch(
           "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
@@ -56,7 +56,6 @@ const Login = () => {
         )
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             //set on local storage
             localStorage.setItem("the-wildlife-token", data.token);
           });
@@ -126,6 +125,7 @@ const Login = () => {
           theme: "light",
         });
       });
+    setLoading(false);
   };
   return (
     <div className="grid justify-items-center gap-10 my-20 md:grid-cols-1">

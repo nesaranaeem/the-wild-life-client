@@ -4,18 +4,18 @@ import { Alert } from "@material-tailwind/react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import Loader from "../../Shared/Loader/Loader";
 const Allservices = () => {
-  const { setLoading, loading } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const [services, setServices] = useState([]);
   useEffect(() => {
-    setLoading();
     fetch(
       "https://the-wildlife-professional-photographer-server.vercel.app/all-services"
     )
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
+        setLoading(false);
       });
-  }, [setLoading]);
+  });
 
   return (
     <div className="mx-auto max-w-screen-xl my-2 py-2 px-4 lg:px-8 lg:py-4">

@@ -21,8 +21,9 @@ import { toast } from "react-toastify";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Helmet } from "react-helmet";
 const SignUp = () => {
-  const { createUser, updateName, googleLogin, setUser, setLoading } =
+  const { createUser, updateName, googleLogin, setUser } =
     useContext(AuthContext);
+
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const SignUp = () => {
           setUser({ ...user, displayName: name, photoURL });
         });
         navigate(from, { replace: true });
-        setLoading(false);
+
         toast("Signup Success", {
           position: "top-center",
           autoClose: 5000,
