@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -15,39 +16,20 @@ const Footer = () => {
         <nav aria-label="Footer Nav" className="mt-12">
           <ul className="flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
             <li>
-              <a
+              <Link
+                to="/blog"
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href="/"
-              >
-                About
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="/"
-              >
-                Services
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="/"
-              >
-                Projects
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="/"
               >
                 Blog
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/services"
+                className="text-gray-700 transition hover:text-gray-700/75"
+              >
+                All Services
+              </Link>
             </li>
           </ul>
         </nav>
@@ -55,7 +37,7 @@ const Footer = () => {
         <ul className="mt-12 flex justify-center gap-6 md:gap-8">
           <li>
             <a
-              href="/"
+              href="https://facebook.com"
               rel="noreferrer"
               target="_blank"
               className="text-gray-700 transition hover:text-gray-700/75"
@@ -78,7 +60,7 @@ const Footer = () => {
 
           <li>
             <a
-              href="/"
+              href="https://instagram.com"
               rel="noreferrer"
               target="_blank"
               className="text-gray-700 transition hover:text-gray-700/75"
@@ -101,7 +83,7 @@ const Footer = () => {
 
           <li>
             <a
-              href="/"
+              href="https://twitter.com"
               rel="noreferrer"
               target="_blank"
               className="text-gray-700 transition hover:text-gray-700/75"
@@ -120,7 +102,7 @@ const Footer = () => {
 
           <li>
             <a
-              href="/"
+              href="https://github.com"
               rel="noreferrer"
               target="_blank"
               className="text-gray-700 transition hover:text-gray-700/75"

@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import ReviewCard from "./Review/ReviewCard";
 import { Helmet } from "react-helmet";
+import Loader from "../../Shared/Loader/Loader";
 const Services = () => {
   const { _id, serviceName, photo, startingPrice, description, otherCharge } =
     useLoaderData();
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const handleAddReview = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -64,6 +66,7 @@ const Services = () => {
     .then(
       (data) => {
         setReview(data);
+        setLoading(false);
       },
       [review]
     );
@@ -157,9 +160,13 @@ const Services = () => {
         </div>
       </div>
       <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-16 lg:grid-cols-3">
-        {review.map((getReview) => (
-          <ReviewCard key={getReview._id} getReview={getReview}></ReviewCard>
-        ))}
+        {loading ? (
+          <Loader></Loader>
+        ) : (
+          review.map((getReview) => (
+            <ReviewCard key={getReview._id} getReview={getReview}></ReviewCard>
+          ))
+        )}
       </div>
     </div>
   );

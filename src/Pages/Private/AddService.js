@@ -44,6 +44,7 @@ const AddService = () => {
       addedBy: addedBy,
       email: adderemail,
     };
+    //post to server
     fetch("http://localhost:5000/services", {
       method: "POST",
       headers: {
@@ -65,6 +66,7 @@ const AddService = () => {
             progress: undefined,
             theme: "light",
           });
+          form.reset();
         }
       })
       .catch((err) => console.error(err));

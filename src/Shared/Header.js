@@ -19,6 +19,7 @@ const Header = () => {
       .then(() => {})
       .catch((err) => {});
   };
+  //for nav menu
   useEffect(() => {
     window.addEventListener(
       "resize",

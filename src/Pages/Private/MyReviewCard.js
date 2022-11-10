@@ -23,31 +23,35 @@ const MyReviewCard = ({ review, handleDelete }) => {
     event.preventDefault();
     const form = event.target;
     const description = form.description.value;
-    const abcd = (12).then(
-      fetch(`http://localhost:5000/updatereview/${review._id}`, {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
-        },
-        body: JSON.stringify({ description: description, title: "bal" }),
-      })
-        .then((res) => {
-          if (res.status === 401 || res.status === 403) {
-            return logOut();
-          }
-          return res.json();
+    const abcd = (12)
+      //update
+      .then(
+        fetch(`http://localhost:5000/updatereview/${review._id}`, {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem(
+              "the-wildlife-token"
+            )}`,
+          },
+          body: JSON.stringify({ description: description, title: "bal" }),
         })
-        .then((data) => {
-          if (data.modifiedCount) {
-            const remaining = reviews.filter((odr) => odr._id !== review._id);
-            const approving = reviews.find((odr) => odr._id === review._id);
-            approving.description = description;
-            const newDescription = [approving, ...remaining];
-            setReviews(newDescription);
-          }
-        })
-    );
+          .then((res) => {
+            if (res.status === 401 || res.status === 403) {
+              return logOut();
+            }
+            return res.json();
+          })
+          .then((data) => {
+            if (data.modifiedCount) {
+              const remaining = reviews.filter((odr) => odr._id !== review._id);
+              const approving = reviews.find((odr) => odr._id === review._id);
+              approving.description = description;
+              const newDescription = [approving, ...remaining];
+              setReviews(newDescription);
+            }
+          })
+      );
   };
   return (
     <>
