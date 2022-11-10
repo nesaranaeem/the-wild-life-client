@@ -51,13 +51,16 @@ const Login = () => {
         };
         setLoading(true);
         //get jwt tokens
-        fetch("http://localhost:5000/jwt", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(currentUser),
-        })
+        fetch(
+          "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(currentUser),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             //set on local storage
@@ -101,13 +104,16 @@ const Login = () => {
           email: user.email,
         };
         //get jwt tokens
-        fetch("http://localhost:5000/jwt", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(currentUser),
-        })
+        fetch(
+          "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(currentUser),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             //set on local storage

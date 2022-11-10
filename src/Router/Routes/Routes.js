@@ -32,7 +32,9 @@ export const router = createBrowserRouter([
         path: "/services/:id",
         element: <Services></Services>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/services/${params.id}`),
+          fetch(
+            `https://the-wildlife-professional-photographer-server.vercel.app/services/${params.id}`
+          ),
         errorElement: <ErrorPage></ErrorPage>,
       },
       {

@@ -14,11 +14,14 @@ const MyReviews = () => {
   const { user, logOut } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/reviewby?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
-      },
-    })
+    fetch(
+      `https://the-wildlife-professional-photographer-server.vercel.app/reviewby?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();
@@ -32,9 +35,12 @@ const MyReviews = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm(`are you sure you want to remove?`);
     if (proceed) {
-      fetch(`http://localhost:5000/reviewby/${id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://the-wildlife-professional-photographer-server.vercel.app/reviewby/${id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

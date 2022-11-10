@@ -35,13 +35,16 @@ const Services = () => {
       email: adderemail,
     };
     //post review
-    fetch("http://localhost:5000/reviews", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(review),
-    })
+    fetch(
+      "https://the-wildlife-professional-photographer-server.vercel.app/reviews",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(review),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -61,7 +64,9 @@ const Services = () => {
       .catch((err) => console.error(err));
   };
   const [review, setReview] = useState([]);
-  fetch(`http://localhost:5000/reviews/${_id}`)
+  fetch(
+    `https://the-wildlife-professional-photographer-server.vercel.app/reviews/${_id}`
+  )
     .then((res) => res.json())
     .then(
       (data) => {

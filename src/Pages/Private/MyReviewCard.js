@@ -26,16 +26,19 @@ const MyReviewCard = ({ review, handleDelete }) => {
     const abcd = (12)
       //update
       .then(
-        fetch(`http://localhost:5000/updatereview/${review._id}`, {
-          method: "PATCH",
-          headers: {
-            "content-type": "application/json",
-            authorization: `Bearer ${localStorage.getItem(
-              "the-wildlife-token"
-            )}`,
-          },
-          body: JSON.stringify({ description: description, title: "bal" }),
-        })
+        fetch(
+          `https://the-wildlife-professional-photographer-server.vercel.app/updatereview/${review._id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+              authorization: `Bearer ${localStorage.getItem(
+                "the-wildlife-token"
+              )}`,
+            },
+            body: JSON.stringify({ description: description, title: "bal" }),
+          }
+        )
           .then((res) => {
             if (res.status === 401 || res.status === 403) {
               return logOut();
