@@ -6,7 +6,6 @@ import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Pages/Login";
 import SignUp from "../../Pages/Pages/SignUp";
 import AddService from "../../Pages/Private/AddService";
-import EditReview from "../../Pages/Private/EditReview";
 import MyReviews from "../../Pages/Private/MyReviews";
 import Allservices from "../../Pages/Services/Allservices";
 import Services from "../../Pages/Services/Services";
@@ -33,9 +32,7 @@ export const router = createBrowserRouter([
         path: "/services/:id",
         element: <Services></Services>,
         loader: ({ params }) =>
-          fetch(
-            `https://the-wildlife-professional-photographer-server.vercel.app/services/${params.id}`
-          ),
+          fetch(`http://localhost:5000/services/${params.id}`),
         errorElement: <ErrorPage></ErrorPage>,
       },
       {
@@ -54,10 +51,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/editreview/:id",
-        element: <EditReview></EditReview>,
-      },
+
       {
         path: "/services",
         element: <Allservices></Allservices>,

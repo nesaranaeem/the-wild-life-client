@@ -65,16 +65,13 @@ const SignUp = () => {
           email: user.email,
         };
         // get jwt tokens
-        fetch(
-          "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(currentUser),
-          }
-        )
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
@@ -93,6 +90,7 @@ const SignUp = () => {
           progress: undefined,
           theme: "light",
         });
+        setLoading(false);
       });
   };
   const provider = new GoogleAuthProvider();
@@ -115,16 +113,13 @@ const SignUp = () => {
         };
         setLoading(false);
         // get jwt tokens
-        fetch(
-          "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(currentUser),
-          }
-        )
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

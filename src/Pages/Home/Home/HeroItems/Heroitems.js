@@ -7,20 +7,20 @@ const Heroitems = ({ services }) => {
   return (
     <>
       <section>
-        <div class="mx-auto max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-            <div class="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full">
+        <div className="mx-auto max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+            <div className="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full">
               <img
                 alt="Tiger"
                 src="https://images.unsplash.com/photo-1500463959177-e0869687df26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                class="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
 
-            <div class="lg:py-24">
-              <h2 class="text-3xl font-bold sm:text-4xl">The Wild Life</h2>
+            <div className="lg:py-24">
+              <h2 className="text-3xl font-bold sm:text-4xl">The Wild Life</h2>
 
-              <p class="mt-4 text-gray-600">
+              <p className="mt-4 text-gray-600">
                 I am a National Award-winning photographer. featured on CNN and
                 the discovery channel. a professional wildlife photographer with
                 10+ years experience
@@ -30,19 +30,19 @@ const Heroitems = ({ services }) => {
                 to="/services"
                 className="mt-8 inline-flex items-center rounded border border-indigo-600 bg-indigo-600 px-8 py-3 text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
               >
-                <span class="text-sm font-medium"> Get Started </span>
+                <span className="text-sm font-medium"> Get Started </span>
 
                 <svg
-                  class="ml-3 h-5 w-5"
+                  className="ml-3 h-5 w-5"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
@@ -250,24 +250,24 @@ const Heroitems = ({ services }) => {
       </section>
       {/* about section */}
       <section>
-        <div class="mx-auto max-w-screen-xl my-2 py-2 px-4 lg:px-8 lg:py-4">
-          <div class="max-w-3xl">
-            <h2 class="text-3xl font-bold sm:text-4xl">
+        <div className="mx-auto max-w-screen-xl my-2 py-2 px-4 lg:px-8 lg:py-4">
+          <div className="max-w-3xl">
+            <h2 className="text-3xl font-bold sm:text-4xl">
               I am Mark Neo, Professional WildLife Photographer
             </h2>
           </div>
 
-          <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-            <div class="relative h-64 overflow-hidden sm:h-80 lg:h-full">
+          <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+            <div className="relative h-64 overflow-hidden sm:h-80 lg:h-full">
               <img
                 alt="Party"
                 src="https://images.unsplash.com/photo-1616858136942-c76763274a08?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                class="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
 
-            <div class="lg:py-16">
-              <article class="space-y-4 text-gray-600">
+            <div className="lg:py-16">
+              <article className="space-y-4 text-gray-600">
                 <p>
                   You may hear my name in TV. i am professional wild life
                   photographer with more than 10 years experiance.

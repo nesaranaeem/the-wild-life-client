@@ -6,15 +6,21 @@ import {
   AccordionBody,
   Alert,
 } from "@material-tailwind/react";
+import { Helmet } from "react-helmet";
 
 const Blog = () => {
   const [open, setOpen] = useState(1);
-
+  // for accordion
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
   return (
     <div className="mx-auto max-w-screen-xl my-2 py-2 px-4 lg:px-8 lg:py-4">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Blog - Professional Wild Life Photographer</title>
+        <meta name="description" content="Explore Blog - The Wild Life" />
+      </Helmet>
       <Fragment>
         <Alert className="my-4">Here is the list of blog</Alert>
         <Accordion open={open === 1}>

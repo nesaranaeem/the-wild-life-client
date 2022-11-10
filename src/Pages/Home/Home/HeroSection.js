@@ -3,12 +3,11 @@ import Loader from "../../../Shared/Loader/Loader";
 import Heroitems from "./HeroItems/Heroitems";
 
 const HeroSection = () => {
+  //for service
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch(
-      "https://the-wildlife-professional-photographer-server.vercel.app/services"
-    )
+    fetch("http://localhost:5000/services")
       .then((res) => res.json())
       .then((data) => {
         setServices(data);

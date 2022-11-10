@@ -6,6 +6,7 @@ const override: CSSProperties = {
   borderColor: "red",
 };
 const Loader = () => {
+  //set loader
   let [loading, setLoading] = useState(true);
   let [color, setColor] = useState("#ffffff");
   return (

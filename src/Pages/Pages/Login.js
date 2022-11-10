@@ -15,6 +15,7 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
 import Loader from "../../Shared/Loader/Loader";
+//import context
 const Login = () => {
   const { loginUserEmailPassword, googleLogin, setLoading, loading } =
     useContext(AuthContext);
@@ -50,16 +51,13 @@ const Login = () => {
         };
         setLoading(true);
         //get jwt tokens
-        fetch(
-          "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(currentUser),
-          }
-        )
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
           .then((res) => res.json())
           .then((data) => {
             //set on local storage
@@ -81,6 +79,7 @@ const Login = () => {
           progress: undefined,
           theme: "light",
         });
+        setLoading(false);
       });
   };
   const provider = new GoogleAuthProvider();
@@ -102,16 +101,13 @@ const Login = () => {
           email: user.email,
         };
         //get jwt tokens
-        fetch(
-          "https://the-wildlife-professional-photographer-server.vercel.app/jwt",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(currentUser),
-          }
-        )
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
           .then((res) => res.json())
           .then((data) => {
             //set on local storage

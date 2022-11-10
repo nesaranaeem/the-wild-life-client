@@ -1,15 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Input,
-  Textarea,
-} from "@material-tailwind/react";
+import { Card, CardBody, CardFooter, Textarea } from "@material-tailwind/react";
 import { toast } from "react-toastify";
-import { FaFontAwesomeFlag } from "react-icons/fa";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import ReviewCard from "./Review/ReviewCard";
 import { Helmet } from "react-helmet";
@@ -22,40 +15,31 @@ const Services = () => {
     const form = event.target;
     const addedBy = `${user?.displayName}`;
     const adderemail = user?.email || "Guest";
-    const title = form.title.value;
-    const rating = form.rating.value;
 
     const description = form.description.value;
-
-    if (title === "" || description === "") {
+    form.reset();
+    if (description === "") {
       alert("Please fill up all fields");
       return;
     }
-    if (isNaN(rating)) {
-      alert("Please rate out of 5");
-      return;
-    }
+
     const review = {
-      title: title,
       serviceId: _id,
       service: serviceName,
-      rating: rating,
+
       description: description,
       addedBy: addedBy,
       profileImage: user?.photoURL,
       email: adderemail,
     };
     //post review
-    fetch(
-      "https://the-wildlife-professional-photographer-server.vercel.app/reviews",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(review),
-      }
-    )
+    fetch("http://localhost:5000/reviews", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(review),
+    })
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -75,9 +59,7 @@ const Services = () => {
       .catch((err) => console.error(err));
   };
   const [review, setReview] = useState([]);
-  fetch(
-    `https://the-wildlife-professional-photographer-server.vercel.app/reviews/${_id}`
-  )
+  fetch(`http://localhost:5000/reviews/${_id}`)
     .then((res) => res.json())
     .then(
       (data) => {
@@ -95,7 +77,7 @@ const Services = () => {
           content="The Wild Life is a professional wild life photographer"
         />
       </Helmet>
-      <div class="group relative flex h-96 w-full items-end bg-black">
+      <div className="group relative flex h-96 w-full items-end bg-black">
         <PhotoProvider>
           <PhotoView src={photo}>
             <img
@@ -106,18 +88,18 @@ const Services = () => {
           </PhotoView>
         </PhotoProvider>
 
-        <div class="mx-auto relative w-full bg-red-700 p-6 text-center tracking-widest text-white transition-colors group-hover:bg-black sm:w-2/3">
-          <h3 class="text-lg uppercase">{serviceName}</h3>
+        <div className="mx-auto relative w-full bg-red-700 p-6 text-center tracking-widest text-white transition-colors group-hover:bg-black sm:w-2/3">
+          <h3 className="text-lg uppercase">{serviceName}</h3>
 
-          <p class="mt-1 text-xs font-medium uppercase">
+          <p className="mt-1 text-xs font-medium uppercase">
             Starting at $ {startingPrice}
           </p>
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <div class="mt-4 sm:mt-8">
-          <div class="inline-flex items-center rounded-full bg-indigo-700 px-8 py-3 text-white shadow-lg transition hover:bg-indigo-600 focus:outline-none focus:ring">
-            <span class="text-sm font-medium">
+        <div className="mt-4 sm:mt-8">
+          <div className="inline-flex items-center rounded-full bg-indigo-700 px-8 py-3 text-white shadow-lg transition hover:bg-indigo-600 focus:outline-none focus:ring">
+            <span className="text-sm font-medium">
               {" "}
               Others Charge: ${otherCharge}
             </span>
@@ -136,26 +118,6 @@ const Services = () => {
             </h3>
             <form onSubmit={handleAddReview}>
               <CardBody className="grid justify-items-center gap-4 md:grid-cols-2">
-                <Input
-                  label="Review Title"
-                  name="title"
-                  size="lg"
-                  icon={<FaFontAwesomeFlag />}
-                />
-                <select
-                  name="rating"
-                  className="w-full border-solid border border-gray-400"
-                >
-                  <option disabled selected>
-                    Rate Out of 5
-                  </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-
                 <div className="lg:col-span-2 w-full">
                   <Textarea name="description" label="Description" />
                 </div>
@@ -174,10 +136,10 @@ const Services = () => {
           </Card>
         ) : (
           <div className="flex items-center justify-center">
-            <div class="bg-indigo-600 px-4 py-3 text-white">
-              <p class="text-center text-sm font-medium">
+            <div className="bg-indigo-600 px-4 py-3 text-white">
+              <p className="text-center text-sm font-medium">
                 You are not logged in. Please
-                <Link to="/login" class="underline">
+                <Link to="/login" className="underline">
                   {" "}
                   Login &rarr;{" "}
                 </Link>{" "}
@@ -187,14 +149,14 @@ const Services = () => {
           </div>
         )}
         <div className="flex items-center justify-center">
-          <div class="bg-indigo-600 px-4 py-3 mt-5 text-white">
-            <p class="text-center text-sm font-medium">
+          <div className="bg-indigo-600 px-4 py-3 mt-5 text-white">
+            <p className="text-center text-sm font-medium">
               Total {review.length} Reviews Found! &rarr;{" "}
             </p>
           </div>
         </div>
       </div>
-      <div class="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-16 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-16 lg:grid-cols-3">
         {review.map((getReview) => (
           <ReviewCard key={getReview._id} getReview={getReview}></ReviewCard>
         ))}

@@ -44,16 +44,13 @@ const AddService = () => {
       addedBy: addedBy,
       email: adderemail,
     };
-    fetch(
-      "https://the-wildlife-professional-photographer-server.vercel.app/services",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(service),
-      }
-    )
+    fetch("http://localhost:5000/services", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(service),
+    })
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -74,14 +71,11 @@ const AddService = () => {
   };
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch(
-      `https://the-wildlife-professional-photographer-server.vercel.app/serviceby?email=${user?.email}`,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
-        },
-      }
-    )
+    fetch(`http://localhost:5000/serviceby?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("the-wildlife-token")}`,
+      },
+    })
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();
@@ -158,38 +152,38 @@ const AddService = () => {
         </CardFooter>
       </Card>
 
-      <div class="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 my-4">
+      <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 my-4">
         <h3 className="text-center my-2">
           {user?.displayName}, You added {services.length} Services yet
         </h3>
         {services?.length < 1 ? (
           <p className="text-center">No data</p>
         ) : (
-          <table class="min-w-full divide-y divide-gray-200 text-sm">
-            <thead class="bg-gray-100">
+          <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <thead className="bg-gray-100">
               <tr>
-                <th class="bg-gray-100 px-4 py-2 text-left">
-                  <label class="sr-only" for="SelectAll">
+                <th className="bg-gray-100 px-4 py-2 text-left">
+                  <label className="sr-only" for="SelectAll">
                     Select All
                   </label>
                 </th>
-                <th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
                   Service Name
                 </th>
-                <th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
                   Photo URL
                 </th>
 
-                <th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
                   Details
                 </th>
-                <th class="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
                   Starting
                 </th>
               </tr>
             </thead>
 
-            <tbody class="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200">
               {services.map((service) => (
                 <SubmittedServices
                   key={service._id}
