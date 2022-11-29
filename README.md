@@ -20,4 +20,4 @@ The Wild Life is a WildLife Photographer reviews management system web app.built
 
 - [https://the-wild-life.web.app/](https://the-wild-life.web.app/) - Client Site
 - [https://the-wildlife-professional-photographer-server.vercel.app/](https://the-wildlife-professional-photographer-server.vercel.app/) - Server Site
-- [https://github.com/Porgramming-Hero-web-course/b6a11-service-review-server-side-nesaranaeem](https://github.com/Porgramming-Hero-web-course/b6a11-service-review-server-side-nesaranaeem) - Server-side Code Github Repository
+- [https://github.com/nesaranaeem/the-wild-life-server](https://github.com/nesaranaeem/the-wild-life-server) - Server-side Code Github Repository
