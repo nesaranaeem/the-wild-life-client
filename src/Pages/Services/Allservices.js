@@ -27,7 +27,7 @@ const Allservices = () => {
           content="Explore all services - The Wild Life"
         />
       </Helmet>
-      <Alert className="my-4">List Of Services</Alert>
+      <Alert className="my-4 text-center">List Of Services</Alert>
       <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {loading ? (
           <Loader></Loader>

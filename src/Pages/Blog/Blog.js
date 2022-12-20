@@ -64,7 +64,7 @@ const Blog = () => {
           </AccordionBody>
         </Accordion>
         <Accordion open={open === 4}>
-          <AccordionHeader onClick={() => handleOpen(3)}>
+          <AccordionHeader onClick={() => handleOpen(4)}>
             How does NodeJS handle multiple requests at the same time?
           </AccordionHeader>
           <AccordionBody>
