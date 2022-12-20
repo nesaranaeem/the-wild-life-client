@@ -9,7 +9,7 @@ const ErrorPage = () => {
         <strong className="text-9xl font-black text-gray-200">404</strong>
 
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Uh-oh!
+          Ooops!
         </h1>
 
         <p className="mt-4 text-gray-500">We can't find that page.</p>

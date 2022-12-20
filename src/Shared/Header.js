@@ -81,7 +81,7 @@ const Header = () => {
         <div className="hidden lg:block">{navList}</div>
         {user?.uid ? (
           <div className="hidden lg:flex items-center justify-center">
-            <Tooltip content={`${user.displayName}`}>
+            <Tooltip content={` Hello ${user.displayName}`}>
               <Avatar src={user?.photoURL} alt="avatar" variant="circular" />
             </Tooltip>
             <div className="hidden lg:flex items-center justify-center">
